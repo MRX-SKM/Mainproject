@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Resume Analyzer + Job Matcher with Techpro Login & Registration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section id="login-section">
+    <h1 id="form-title">Techpro Login</h1>
+    <div id="login-error" class="alert" role="alert" style="display:none;"></div>
+    <div class="input-group">
+      <input id="email" type="email" placeholder=" " autocomplete="username" aria-label="Email" />
+      <label for="email">Email</label>
+    </div>
+    <div class="input-group">
+      <input id="password" type="password" placeholder=" " autocomplete="current-password" aria-label="Password" />
+      <label for="password">Password</label>
+    </div>
+    <button id="login-btn">Log In</button>
+    <button id="toggle-register" aria-label="Toggle between login and register form">Don't have an account? Register</button>
+  </section>
+
+  <div id="main-app-container" style="display:none;"> <div id="header-bar">
+        <button id="home-btn" aria-label="Go to home page">Home</button>
+        <button id="logout-btn" class="logout-btn" aria-label="Log out from the application">Logout</button>
+    </div>
+
+    </div>
+
+  <footer>
+    &copy; 2025 Techpro. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script> </body>
+</html>
