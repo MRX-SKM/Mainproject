@@ -23,7 +23,7 @@ const Auth = (function() {
 
   function register(email, password) {
     let users = loadUsers();
-    if (users[email]) {
+    if (users[Email]) {
       return false; // User already exists
     }
     users[email] = password;
