@@ -150,7 +150,11 @@ if (toggleRegisterBtn) {
     isRegisterMode = !isRegisterMode;
     formTitle.textContent = isRegisterMode ? 'Register New Account' : 'Techpro Login';
     loginBtn.textContent = isRegisterMode ? 'Register' : 'Log In';
+<<<<<<< HEAD
     toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In' : "Don't have an account? Register";
+=======
+    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In ' : "Don't have an account? Register";
+>>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
     emailInput.value = '';
     passwordInput.value = '';
   });
@@ -226,3 +230,7 @@ window.addEventListener('load', () => {
   }
   // Chatbot.init(); // This will be called by Member 4
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737

@@ -105,7 +105,11 @@ body {
   background: transparent;
   color: #a7c7e7;
   font-weight: 600;
+<<<<<<< HEAD
   font-size: 0.95rem;
+=======
+  font-size: 1rem;
+>>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
   border: none;
   cursor: pointer;
   text-decoration: underline;
@@ -178,7 +182,11 @@ body {
 
 #header-bar button:hover {
   background-color: rgba(167, 199, 231, 0.8); /* Theme color background on hover */
+<<<<<<< HEAD
   color: #1f1c2c; /* Dark text for contrast on hover */
+=======
+  color: #1f2c2c; /* Dark text for contrast on hover */
+>>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(167, 199, 231, 0.3);
 }
@@ -205,3 +213,7 @@ footer {
   flex-shrink: 0; /* Prevent footer from shrinking if content is small */
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
