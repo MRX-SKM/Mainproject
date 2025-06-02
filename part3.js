@@ -150,7 +150,7 @@ if (toggleRegisterBtn) {
     isRegisterMode = !isRegisterMode;
     formTitle.textContent = isRegisterMode ? 'Register New Account' : 'Techpro Login';
     loginBtn.textContent = isRegisterMode ? 'Register' : 'Log In';
-    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In' : "Don't have an account? Register";
+    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In ' : "Don't have an account? Register";
     emailInput.value = '';
     passwordInput.value = '';
   });

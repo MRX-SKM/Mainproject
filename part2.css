@@ -105,7 +105,7 @@ body {
   background: transparent;
   color: #a7c7e7;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
   text-decoration: underline;
@@ -178,7 +178,7 @@ body {
 
 #header-bar button:hover {
   background-color: rgba(167, 199, 231, 0.8); /* Theme color background on hover */
-  color: #1f1c2c; /* Dark text for contrast on hover */
+  color: #1f2c2c; /* Dark text for contrast on hover */
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(167, 199, 231, 0.3);
 }
