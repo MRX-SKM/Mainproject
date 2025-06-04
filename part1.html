@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Resume Analyzer + Job Matcher with Techpro Login & Registration</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .alert {
+      color: red;
+      margin: 10px 0;
+    }
+    .alert.success {
+      color: green;
+    }
+  </style>
 </head>
 <body>
   <section id="login-section">
@@ -60,6 +69,10 @@
     const formTitle = document.getElementById('form-title');
     const loginBtn = document.getElementById('login-btn');
     const registerForm = document.getElementById('register-form');
+    const registerBtn = document.getElementById('register-btn');
+
+    const loginError = document.getElementById('login-error');
+    const loginSuccess = document.getElementById('login-success');
 
     let isRegistering = false;
 
@@ -69,6 +82,36 @@
       loginBtn.style.display = isRegistering ? 'none' : 'inline-block';
       formTitle.textContent = isRegistering ? 'Techpro Registration' : 'Techpro Login';
       toggleRegisterBtn.textContent = isRegistering ? 'Already have an account? Log In' : "Don't have an account? Register";
+    });
+
+    registerBtn.addEventListener('click', () => {
+      const email = document.getElementById('register-email').value.trim();
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      loginError.style.display = 'none';
+      loginSuccess.style.display = 'none';
+
+      if (!email || !password || !confirmPassword) {
+        loginError.textContent = 'All fields are required for registration.';
+        loginError.style.display = 'block';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        loginError.textContent = 'Passwords do not match.';
+        loginError.style.display = 'block';
+        return;
+      }
+
+      // Simulate registration success
+      loginSuccess.textContent = 'Registration successful! You can now log in.';
+      loginSuccess.style.display = 'block';
+
+      // Reset form fields
+      document.getElementById('register-email').value = '';
+      document.getElementById('register-password').value = '';
+      document.getElementById('confirm-password').value = '';
     });
   </script>
 </body>
