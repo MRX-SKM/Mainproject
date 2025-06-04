@@ -117,6 +117,8 @@ const UIManager = (function () {
 })();
 
 // --- Main Application Logic (Event Listeners for Auth) ---
+=======
+// DOM Elements for Auth
 const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const homeBtn = document.getElementById('home-btn');
@@ -124,6 +126,17 @@ const toggleRegisterBtn = document.getElementById('toggle-register');
 const formTitle = document.getElementById('form-title');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+
+// ✅ Added DOM elements for username and show password
+const usernameInput = document.getElementById('username');
+const showPasswordCheckbox = document.getElementById('show-password');
+
+// ✅ Password visibility toggle logic
+if (showPasswordCheckbox && passwordInput) {
+  showPasswordCheckbox.addEventListener('change', () => {
+    passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+  });
+}
 
 let isRegisterMode = false;
 
@@ -139,6 +152,13 @@ if (toggleRegisterBtn) {
     emailInput.value = '';
     passwordInput.value = '';
     emailInput.focus(); // 🔁 Focus on email field when toggling mode
+=======
+    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In' : "Don't have an account? Register";
+    emailInput.value = '';
+    passwordInput.value = '';
+
+    // ✅ Clear username on toggle
+    if (usernameInput) usernameInput.value = '';
   });
 }
 
@@ -147,9 +167,10 @@ if (loginBtn) {
     UIManager.clearMessage();
     const email = emailInput.value.trim().toLowerCase();
     const password = passwordInput.value.trim();
+    const username = usernameInput ? usernameInput.value.trim() : ''; // ✅ Grab username if present
 
-    if (!email || !password) {
-      UIManager.showMessage('Please enter both email and password.');
+    if (!email || !password || (isRegisterMode && !username)) {
+      UIManager.showMessage('Please fill all required fields.');
       return;
     }
 
@@ -169,12 +190,16 @@ if (loginBtn) {
         emailInput.value = '';
         passwordInput.value = '';
         emailInput.focus();
+=======
+        if (usernameInput) usernameInput.value = '';
       } else {
         if (Auth.login(email, password)) {
           Auth.setLoggedInUser(email);
           UIManager.showAppScreen();
         } else {
           UIManager.showMessage('Email already registered. Try logging in or use a different password.');
+=======
+          UIManager.showMessage('This email is already registered. Try logging in or use a different password.');
         }
       }
     } else {
@@ -188,6 +213,7 @@ if (loginBtn) {
     }
   });
 }
+
 
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {

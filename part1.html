@@ -21,17 +21,26 @@
 
     <div id="login-error" class="alert" role="alert" style="display:none;"></div>
     <div id="login-success" class="alert success" role="alert" style="display:none;"></div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Techpro Login/Register</title>
+</head>
+<body>
+  <section id="login-section">
+    <h1>Techpro Login</h1>
 
     <div class="input-group">
-      <input id="email" type="email" placeholder=" " autocomplete="username" aria-label="Email" />
+      <input id="email" type="email" placeholder=" " autocomplete="username" aria-label="Email" required />
       <label for="email">Email</label>
     </div>
     <div class="input-group">
-      <input id="password" type="password" placeholder=" " autocomplete="current-password" aria-label="Password" />
+      <input id="password" type="password" placeholder=" " autocomplete="current-password" aria-label="Password" required />
       <label for="password">Password</label>
+      <!-- 🔹 Show Password Checkbox -->
+      <input type="checkbox" onclick="document.getElementById('password').type = this.checked ? 'text' : 'password'"> Show Password
     </div>
 
     <button id="login-btn">Log In</button>
+
 
     <div id="register-form" style="display:none;">
       <div class="input-group">
@@ -52,14 +61,56 @@
     <button id="toggle-register" aria-label="Toggle between login and register form">Don't have an account? Register</button>
   </section>
 
+=======
+  <!-- REGISTRATION SECTION -->
+  <section id="register-section" style="display:none;">
+    <h1 id="register-title">Techpro Register</h1>
+
+    <div id="register-error" class="alert" role="alert" style="display:none;"></div>
+
+    <div class="input-group">
+      <!-- 🔹 Added Username field -->
+      <input id="reg-username" type="text" placeholder=" " aria-label="Register Username" required />
+      <label for="reg-username">Username</label>
+    </div>
+    <div class="input-group">
+      <input id="reg-email" type="email" placeholder=" " aria-label="Register Email" required />
+      <label for="reg-email">Email</label>
+    </div>
+    <div class="input-group">
+      <input id="reg-password" type="password" placeholder=" " aria-label="Register Password" required />
+      <label for="reg-password">Password</label>
+    </div>
+    <div class="input-group">
+      <input id="reg-confirm-password" type="password" placeholder=" " aria-label="Confirm Password" required />
+      <label for="reg-confirm-password">Confirm Password</label>
+      <!-- 🔹 Show Password Checkbox for registration -->
+      <input type="checkbox" onclick="
+        document.getElementById('reg-password').type = this.checked ? 'text' : 'password';
+        document.getElementById('reg-confirm-password').type = this.checked ? 'text' : 'password';
+      "> Show Password
+    </div>
+
+    <button id="register-btn">Register</button>
+    <button id="toggle-login" aria-label="Toggle back to login">Already have an account? Login</button>
+  </section>
+
+  <!-- MAIN APP CONTENT -->
   <div id="main-app-container" style="display:none;">
     <div id="header-bar">
       <button id="home-btn" aria-label="Go to home page">Home</button>
       <button id="logout-btn" class="logout-btn" aria-label="Log out from the application">Logout</button>
+
     </div>
     <!-- You can add your AI analyzer/job matching UI here -->
+    </div>
+    <div id="app-content">
+      <h2>Welcome to the AI Resume Analyzer + Job Matcher</h2>
+      <p>Upload your resume to find the best matching jobs instantly.</p>
+    </div>
   </div>
 
+  <!-- FOOTER -->
   <footer>
     &copy; 2025 Techpro. All rights reserved.
   </footer>
@@ -114,6 +165,7 @@
       document.getElementById('confirm-password').value = '';
     });
   </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
