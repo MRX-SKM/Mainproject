@@ -1,3 +1,5 @@
+AI Resume Analyser + Job Matcher
+=======
 # AI Resume Analyzer & Job Matcher (Techpro Version) 🚀
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -128,4 +130,3 @@ Contributions are welcome!
  Project Maintainer: Mithun K
  Email: mithungowda404@gmail.com 📧
  Project Link:https://github.com/MRX-SKM/Mainproject.git
-# Mainproject
