@@ -9,7 +9,10 @@
 <body>
   <section id="login-section">
     <h1 id="form-title">Techpro Login</h1>
+
     <div id="login-error" class="alert" role="alert" style="display:none;"></div>
+    <div id="login-success" class="alert success" role="alert" style="display:none;"></div>
+
     <div class="input-group">
       <input id="email" type="email" placeholder=" " autocomplete="username" aria-label="Email" />
       <label for="email">Email</label>
@@ -18,20 +21,56 @@
       <input id="password" type="password" placeholder=" " autocomplete="current-password" aria-label="Password" />
       <label for="password">Password</label>
     </div>
+
     <button id="login-btn">Log In</button>
+
+    <div id="register-form" style="display:none;">
+      <div class="input-group">
+        <input id="register-email" type="email" placeholder=" " autocomplete="email" aria-label="Register Email" />
+        <label for="register-email">Email</label>
+      </div>
+      <div class="input-group">
+        <input id="register-password" type="password" placeholder=" " autocomplete="new-password" aria-label="Register Password" />
+        <label for="register-password">Password</label>
+      </div>
+      <div class="input-group">
+        <input id="confirm-password" type="password" placeholder=" " aria-label="Confirm Password" />
+        <label for="confirm-password">Confirm Password</label>
+      </div>
+      <button id="register-btn">Register</button>
+    </div>
+
     <button id="toggle-register" aria-label="Toggle between login and register form">Don't have an account? Register</button>
   </section>
 
-  <div id="main-app-container" style="display:none;"> <div id="header-bar">
-        <button id="home-btn" aria-label="Go to home page">Home</button>
-        <button id="logout-btn" class="logout-btn" aria-label="Log out from the application">Logout</button>
+  <div id="main-app-container" style="display:none;">
+    <div id="header-bar">
+      <button id="home-btn" aria-label="Go to home page">Home</button>
+      <button id="logout-btn" class="logout-btn" aria-label="Log out from the application">Logout</button>
     </div>
-
-    </div>
+    <!-- You can add your AI analyzer/job matching UI here -->
+  </div>
 
   <footer>
     &copy; 2025 Techpro. All rights reserved.
   </footer>
 
-  <script src="script.js"></script> </body>
+  <script>
+    const toggleRegisterBtn = document.getElementById('toggle-register');
+    const formTitle = document.getElementById('form-title');
+    const loginBtn = document.getElementById('login-btn');
+    const registerForm = document.getElementById('register-form');
+
+    let isRegistering = false;
+
+    toggleRegisterBtn.addEventListener('click', () => {
+      isRegistering = !isRegistering;
+      registerForm.style.display = isRegistering ? 'block' : 'none';
+      loginBtn.style.display = isRegistering ? 'none' : 'inline-block';
+      formTitle.textContent = isRegistering ? 'Techpro Registration' : 'Techpro Login';
+      toggleRegisterBtn.textContent = isRegistering ? 'Already have an account? Log In' : "Don't have an account? Register";
+    });
+  </script>
+</body>
 </html>
+
