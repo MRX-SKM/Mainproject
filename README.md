@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Final
 AI Resume Analyser + Job Matcher
 =======
@@ -132,5 +131,3 @@ Contributions are welcome!
  Project Maintainer: Mithun K
  Email: mithungowda404@gmail.com 📧
  Project Link:https://github.com/MRX-SKM/Mainproject.git
-# Mainproject
->>>>>>> master
