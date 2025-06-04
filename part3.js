@@ -1,5 +1,5 @@
 // --- Utility Functions (Conceptual Module 1: Auth & Storage) ---
-const Auth = (function() {
+const Auth = (function () {
   function loadUsers() {
     return JSON.parse(localStorage.getItem('users') || '{}');
   }
@@ -49,17 +49,15 @@ const Auth = (function() {
     register,
     setLoggedInUser,
     getLoggedInUser,
-    logout
+    logout,
   };
 })();
 
 // --- UI Management (Conceptual Module 2: UIManager) ---
-// Member 1 focuses on the parts related to login/app screen toggling and messages
-const UIManager = (function() {
+const UIManager = (function () {
   const loginSection = document.getElementById('login-section');
   const mainAppContainer = document.getElementById('main-app-container');
   const loginError = document.getElementById('login-error');
-  // Other DOM elements will be added by other members or in a combined UIManager
 
   function showMessage(message, isError = true) {
     loginError.textContent = message;
@@ -79,9 +77,13 @@ const UIManager = (function() {
     if (loginSection) loginSection.style.display = 'flex';
     document.body.style.justifyContent = 'center';
     clearMessage();
-    // Ensure elements managed by other members are also hidden if necessary
-    const blankPagePlaceholder = document.getElementById('blank-page-placeholder'); // From M3
+
+    const blankPagePlaceholder = document.getElementById('blank-page-placeholder');
     if (blankPagePlaceholder) blankPagePlaceholder.style.display = 'none';
+
+    // 🔁 Autofocus email input for better UX
+    const emailInput = document.getElementById('email');
+    if (emailInput) emailInput.focus();
   }
 
   function showAppScreen() {
@@ -90,52 +92,34 @@ const UIManager = (function() {
     document.body.style.justifyContent = 'flex-start';
     clearMessage();
 
-    // Reset app content (calls to functions that might be expanded by M2/M3)
-    // For now, just basic resets. UIManager.showMainAppContent will handle specifics.
-    const resumeTextArea = document.getElementById('resume-text'); // From M2/M3
-    if (resumeTextArea) resumeTextArea.value = '';
-    const pdfUploadInput = document.getElementById('pdf-upload-input'); // From M2
-    if (pdfUploadInput) pdfUploadInput.value = '';
-    // Add clearing for other file inputs from M2
-    const docToPdfInput = document.getElementById('doc-to-pdf-upload-input');
-    if (docToPdfInput) docToPdfInput.value = '';
-    const imgToPdfInput = document.getElementById('img-to-pdf-upload-input');
-    if (imgToPdfInput) imgToPdfInput.value = '';
-    const htmlToPdfInput = document.getElementById('html-to-pdf-upload-input');
-    if (htmlToPdfInput) htmlToPdfInput.value = '';
+    // Reset all user inputs from Modules 2 & 3
+    ['resume-text', 'pdf-upload-input', 'doc-to-pdf-upload-input', 'img-to-pdf-upload-input', 'html-to-pdf-upload-input'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) input.value = '';
+    });
 
+    ['results', 'loading', 'next-page-btn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
 
-    const resultsPre = document.getElementById('results'); // From M3
-    if (resultsPre) resultsPre.style.display = 'none';
-    const loadingDiv = document.getElementById('loading'); // From M3
-    if (loadingDiv) loadingDiv.style.display = 'none';
-    const nextPageBtn = document.getElementById('next-page-btn'); // From M3
-    if (nextPageBtn) nextPageBtn.style.display = 'none';
-
-    // Call a more comprehensive reset/show function for the app's main content area
-    // This function will be fully defined/expanded by M3
-     if (typeof UIManager.showMainAppContent === 'function') {
-        UIManager.showMainAppContent();
+    if (typeof UIManager.showMainAppContent === 'function') {
+      UIManager.showMainAppContent();
     }
   }
-
-  // Placeholder for showMainAppContent - M3 will expand this
-  // UIManager.showMainAppContent = function() { /* ... M3's logic ... */ };
 
   return {
     showMessage,
     clearMessage,
     showLoginScreen,
     showAppScreen,
-    // Expose other functions as they are built by other members
   };
 })();
 
 // --- Main Application Logic (Event Listeners for Auth) ---
-// DOM Elements for Auth
 const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
-const homeBtn = document.getElementById('home-btn'); // Basic navigation
+const homeBtn = document.getElementById('home-btn');
 const toggleRegisterBtn = document.getElementById('toggle-register');
 const formTitle = document.getElementById('form-title');
 const emailInput = document.getElementById('email');
@@ -143,20 +127,18 @@ const passwordInput = document.getElementById('password');
 
 let isRegisterMode = false;
 
-// Event Listeners for Auth
 if (toggleRegisterBtn) {
   toggleRegisterBtn.addEventListener('click', () => {
     UIManager.clearMessage();
     isRegisterMode = !isRegisterMode;
     formTitle.textContent = isRegisterMode ? 'Register New Account' : 'Techpro Login';
     loginBtn.textContent = isRegisterMode ? 'Register' : 'Log In';
-<<<<<<< HEAD
-    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In' : "Don't have an account? Register";
-=======
-    toggleRegisterBtn.textContent = isRegisterMode ? 'Already have an account? Log In ' : "Don't have an account? Register";
->>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
+    toggleRegisterBtn.textContent = isRegisterMode
+      ? 'Already have an account? Log In'
+      : "Don't have an account? Register";
     emailInput.value = '';
     passwordInput.value = '';
+    emailInput.focus(); // 🔁 Focus on email field when toggling mode
   });
 }
 
@@ -171,6 +153,12 @@ if (loginBtn) {
       return;
     }
 
+    // 🔒 Password strength validation (basic check)
+    if (isRegisterMode && password.length < 6) {
+      UIManager.showMessage('Password must be at least 6 characters long.');
+      return;
+    }
+
     if (isRegisterMode) {
       if (Auth.register(email, password)) {
         UIManager.showMessage('Registration successful! You can now log in.', false);
@@ -178,20 +166,22 @@ if (loginBtn) {
         formTitle.textContent = 'Techpro Login';
         loginBtn.textContent = 'Log In';
         toggleRegisterBtn.textContent = "Don't have an account? Register";
-        emailInput.value = ''; // Clear fields for login
+        emailInput.value = '';
         passwordInput.value = '';
+        emailInput.focus();
       } else {
-         if (Auth.login(email, password)) { // Check if it was a registration attempt for existing user with correct pass
-            Auth.setLoggedInUser(email);
-            UIManager.showAppScreen();
-          } else {
-            UIManager.showMessage('This email is already registered. Try logging in or use a different password if this was a mistake during registration.');
-          }
+        if (Auth.login(email, password)) {
+          Auth.setLoggedInUser(email);
+          UIManager.showAppScreen();
+        } else {
+          UIManager.showMessage('Email already registered. Try logging in or use a different password.');
+        }
       }
     } else {
       if (Auth.login(email, password)) {
         Auth.setLoggedInUser(email);
         UIManager.showAppScreen();
+        UIManager.showMessage('Welcome back!', false); // ✅ Added welcome message
       } else {
         UIManager.showMessage('Invalid email or password.');
       }
@@ -203,24 +193,21 @@ if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
     Auth.logout();
     UIManager.showLoginScreen();
+    UIManager.showMessage('You’ve been logged out.', false); // ✅ Logout feedback
   });
 }
 
 if (homeBtn) {
   homeBtn.addEventListener('click', () => {
-    // This should reset the app view to its initial state after login
-    // UIManager.showMainAppContent will be fully implemented by Member 3
     if (typeof UIManager.showMainAppContent === 'function') {
-        UIManager.showMainAppContent();
-    } else { // Basic fallback if M3 part not integrated yet
-        UIManager.showAppScreen(); // Resets some elements
+      UIManager.showMainAppContent();
+    } else {
+      UIManager.showAppScreen();
     }
-    // Member 3 might add clearing of matchedCompaniesList here
-    // matchedCompaniesList = [];
   });
 }
 
-// Initial setup on page load (Auth part)
+// --- Initial Setup ---
 window.addEventListener('load', () => {
   Auth.initDefaultUser();
   if (Auth.getLoggedInUser()) {
@@ -228,9 +215,10 @@ window.addEventListener('load', () => {
   } else {
     UIManager.showLoginScreen();
   }
-  // Chatbot.init(); // This will be called by Member 4
-});
-<<<<<<< HEAD
-=======
 
->>>>>>> 67206c8ace54d65e3451e9217a5c54fb064a1737
+  // Auto-focus email input on load for accessibility
+  if (emailInput) emailInput.focus();
+
+  // Chatbot.init(); // Reserved for M4
+});
+
